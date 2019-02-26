@@ -1,0 +1,81 @@
+@import './assets/scss/colors.scss';
+@import './assets/scss/font.scss';
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  color: #555;
+  background-color: white;
+  font-family: "Montserrat" !important;
+}
+
+h1 {
+  font-size: $giant;
+}
+
+p {
+  font-size: $tiny;
+}
+
+th, td, button, input, a, li {
+  outline: none !important;
+}
+  
+h1 {
+  color: #003d86;
+}
+
+a:focus, [routerLink] {
+  outline: none !important;
+}
+
+.ng-invalid-label {
+  color: $error;
+  font-size: 0.7em
+}
+
+input.ng-invalid.ng-touched,
+p-inputmask.ng-invalid.ng-touched > input,
+p-calendar.ng-invalid.ng-touched input,
+custom-form-input.ng-invalid.ng-touched input {
+  border-color: $error !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button:focus {outline:0;}
+html, body {
+    height: 100%;
+}
+
+.ui-tabview-panels {
+    border: 0px !important;
+}
+
+.width-complete {
+    width: 100% !important;
+}
+
+/** SCROL **/
+/* width */
+::-webkit-scrollbar {
+    width: 10px !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888 !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555 !important;
+}

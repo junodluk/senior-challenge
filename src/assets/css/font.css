@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/TypoPRO-Montserrat-Regular.woff') format('woff2');;
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('./fonts/TypoPRO-Montserrat-Bold.woff') format('woff2');;
+}
