@@ -30,7 +30,7 @@ import { MainModule } from './pages/main/main.module';
     ToastModule,
     NgxSpinnerModule,
     NgxMaskModule,
-    MainModule
+    MainModule,
   ],
   providers: [
     ConfirmationService,

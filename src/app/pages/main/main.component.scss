@@ -4,6 +4,14 @@
   margin: 0px;
   background-color: white;
 
+  .inner-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
   ng-component.ng-star-inserted {
     min-width: calc(100% - 225px);
   }

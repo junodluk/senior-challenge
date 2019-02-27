@@ -13,12 +13,15 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   items: MenuItem[] = [
     {
-      label: 'nova',
-      visible: true,
+      label: 'Novo Item',
+      icon: 'far fa-plus-square',
+      routerLink: ['/items/new']
     },
     {
-      label: 'teste'
-    }
+      label: 'Lista de Itens',
+      icon: 'fas fa-list',
+      routerLink: ['/items/list']
+    },
   ];
 
   private subscribers: Subscription[] = [];
