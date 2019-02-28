@@ -12,7 +12,7 @@ Authored by **Alcione de Lucca Júnior** <junior.dluk@gmail.com>
 - [Building](#building)
 
 ## Setting up
-1. `git clone https://github.com/junodluk/underground-hiplatform.git`;
+1. `git clone https://github.com/junodluk/senior-challenge.git`;
 2. Run `npm i` to install dependencies;
 
 ## Running
