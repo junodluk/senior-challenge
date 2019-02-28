@@ -1,8 +1,0 @@
-<div>
-  <app-label [text]="label" *ngIf="!hideLabel" [isRequired]="isRequired">
-  </app-label>
-  <ng-content></ng-content>
-  <app-validation-message 
-    [text]="getErrorMessage()">
-  </app-validation-message>
-</div>
