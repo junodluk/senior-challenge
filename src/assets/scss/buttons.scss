@@ -1,0 +1,85 @@
+@import '../../assets/scss/colors.scss';
+
+button.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat";
+
+  &:not(.icon-only) {
+    padding-top: 8px;
+  
+    &.link {
+      border: 2px solid transparent !important;
+    }
+  
+    span.fas {
+      margin-top: -4px;
+      margin-right: 5px;
+    }
+  }
+}
+
+button[class*=btn-outline-].btn {
+  border: 2px solid;
+}
+
+button[class*=btn-block].btn {
+  font-size: 1em; // .7rem;
+  font-weight: 600;
+  padding: 0.75rem;
+}
+
+button[class*=btn-green].btn {
+  border: 2px solid $green-light;
+  color: $green-light;
+
+  &:hover {
+    background-color: $green-light;
+    color: $white-light;
+  }
+}
+
+button[class*=btn-red].btn {
+  border: 2px solid $red-normal;
+  color: $red-normal;
+
+  &:hover {
+    background-color: $red-normal;
+    color: $white-light;
+  }
+}
+
+button[class*=btn-blue].btn {
+  border: 2px solid $blue-normal;
+  color: $blue-normal;
+
+  &:hover {
+    background-color: $blue-normal;
+    color: $white-light;
+  }
+}
+
+button[class*=btn-grey].btn {
+  border: 2px solid $grey-dark;
+  color: $grey-dark;
+  
+  &:hover {
+    background-color: $grey-dark;
+    color: $white-light;
+  }
+}
+
+.btn {
+  font-size: .7rem; //;
+  //  button[class*=btn-outline-].btn {
+  border: 2px solid transparent; // ;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.4;
+  border-radius: 1.5rem;
+ //  text-transform: uppercase;
+}
+
+.form-control {
+ font-size: inherit;
+}

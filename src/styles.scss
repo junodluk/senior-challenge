@@ -1,5 +1,9 @@
 @import './assets/scss/colors.scss';
 @import './assets/scss/font.scss';
+@import './assets/scss/buttons.scss';
+
+@import './assets/scss/input.scss';
+@import './assets/scss/calendar.scss';
 
 html {
   height: 100%;
@@ -20,14 +24,6 @@ p {
   font-size: $tiny;
 }
 
-th, td, button, input, a, li {
-  outline: none !important;
-}
-  
-h1 {
-  color: #003d86;
-}
-
 a:focus, [routerLink] {
   outline: none !important;
 }
@@ -37,16 +33,6 @@ a:focus, [routerLink] {
   font-size: 0.7em
 }
 
-input.ng-invalid.ng-touched,
-p-inputmask.ng-invalid.ng-touched > input,
-p-calendar.ng-invalid.ng-touched input,
-custom-form-input.ng-invalid.ng-touched input {
-  border-color: $error !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-button:focus {outline:0;}
 html, body {
     height: 100%;
 }

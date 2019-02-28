@@ -1,3 +1,36 @@
-<p>
-  item-list works!
-</p>
+<form [formGroup]="filterForm" (ngSubmit)="filter()">
+  <div class="col-md-12">
+    <div class="container-header">
+      <h2>Lista de Itens</h2>
+    </div>
+    <div class="container-content">
+      <div class="row">
+        <!-- <div class="col-md-4">
+          <vdp-custom-input 
+            label="Nome do item"
+            formControlName="name"
+            allowSpecialCharacteres="true">
+          </vdp-custom-input>
+        </div>
+        <div class="col-md-4">
+          <vdp-custom-input 
+            label="Nome de acesso"
+            formControlName="username"
+            allowSpecialCharacteres="true">
+          </vdp-custom-input>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-1">
+          <button type="submit" class="btn btn-blue"><span class="fas fa-filter"></span>Filtrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<vdp-view-list 
+  [view]="view" 
+  [elements]="items"
+></vdp-view-list>

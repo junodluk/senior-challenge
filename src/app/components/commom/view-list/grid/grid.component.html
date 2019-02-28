@@ -1,0 +1,185 @@
+<p-table
+  #tableElement
+  [columns]="columns"
+  [value]="elements"
+  [reorderableColumns]="true"
+  [responsive]="true"
+  [lazy]="true"
+  (onLazyLoad)="onSort($event)"
+  [sortField]="fieldSort && fieldSort.property"
+  [sortOrder]="fieldSort && fieldSort.sort">
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <ng-container *ngFor="let column of columns">
+        <th *ngIf="column.sortable && column.orderable" pReorderableColumn [pSortableColumn]="column.property" [ngStyle]="getHeaderStyle(column)">
+          <p>
+            {{column.label}} <p-sortIcon [field]="column.property"></p-sortIcon>
+          </p>
+        </th>
+        <th *ngIf="!column.sortable && column.orderable" [pSortableColumn]="column.property" [ngStyle]="getHeaderStyle(column)">
+          <p>
+            {{column.label}}
+          </p>
+        </th>
+        <th *ngIf="column.sortable && !column.orderable" [pSortableColumn]="column.property" [ngStyle]="getHeaderStyle(column)">
+          <p>
+            {{column.label}} <p-sortIcon [field]="column.property"></p-sortIcon>
+          </p>
+        </th>
+        <th *ngIf="!column.sortable && !column.orderable" [ngStyle]="getHeaderStyle(column)">
+          <p>
+            {{column.label}}
+          </p>
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-element let-columns="columns">
+    <tr>
+      <td *ngFor="let column of columns"  [ngStyle]="getHeaderStyle(column)">
+        <div [ngSwitch]="column.type" *ngIf="column.property && column.property">
+          <div *ngSwitchCase="'status'">
+            <div class="row align-items-center">
+              <div class="col-md-9">
+                {{element[column.property]}}
+              </div>
+            </div>
+          </div>
+          <div  *ngSwitchCase="'date'">
+              {{element[column.property]  | date: 'dd/MM/yyyy'}}
+          </div>
+          <div  *ngSwitchCase="'datetime'">
+              {{element[column.property]  | date: 'dd/MM/yyyy HH:mm'}}
+          </div>
+          <div  *ngSwitchCase="'currency'">
+              {{element[column.property]  | currency:'BRL'}}
+          </div>
+          <div  *ngSwitchCase="'enum'">
+              {{ formatByPropType(element[column.property], column) }}
+          </div>
+          <div  *ngSwitchCase="'boolean/icon'">
+            <i class="fas {{ formatByPropType(element[column.property], column) }}"></i>
+          </div>
+          <div  *ngSwitchCase="'boolean/icon-reverse'">
+            <i class="fas {{ formatByPropType(element[column.property], column) }}"></i>
+          </div>
+          <div  *ngSwitchCase="'boolean/string'">
+            {{formatByPropType(element[column.property], column)}}
+          </div>
+          <div *ngSwitchCase="'link'">
+            <a (click)="column.onClickLink(element[column.property])" 
+              tabindex="-1" 
+              class="btn btn-link"
+              role="button">
+              {{column.linkLabel}}
+            </a>
+          </div>
+          <div *ngSwitchCase="'checkbox'">
+              <p-checkbox 
+                binary="true" 
+                value="true"
+                [(ngModel)]="element[column.property]"
+                (onChange)="column.checkbox.onChange($event, element, column.property)">
+              </p-checkbox>
+          </div>
+          <div *ngSwitchDefault>
+            {{(element[column.property] ? element[column.property] : '-')}}
+          </div>
+        </div>
+
+        <div *ngIf="column.type == 'button' && (visibleButtons(column.buttons, element).length == 1 || !column.dropdownButtons)" class="button-column">
+          <ng-container *ngFor="let button of visibleButtons(column.buttons, element)">
+            <button
+              type="button"
+              class="btn btn-sm {{button.btnClass ? button.btnClass : 'btn-black'}}"
+              (click)="button.onClick(element)"
+            >
+              <span *ngIf="button.iconClass" [ngClass]="button.iconClass"></span> {{button.caption}}
+            </button>
+          </ng-container>
+          
+        </div>
+        <div *ngIf="column.type == 'button' && (visibleButtons(column.buttons, element).length > 1 && column.dropdownButtons)" class="button-column btn-group">
+          <button
+            type="button"
+            class="btn btn-actions btn-black dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            Ações
+          </button>
+          <div class="dropdown-menu">
+            <ng-container *ngFor="let button of visibleButtons(column.buttons, element)">
+              <a *ngIf="button.isVisible ? button.isVisible(element) : true" class="dropdown-item clickable" (click)="button.onClick(element)">{{ button.caption }}</a>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<!-- <p-table
+  #tableElement
+  [columns]="columns" 
+  [value]="elements" 
+  [reorderableColumns]="true"
+  [responsive]="true"
+  [lazy]="true"
+  (onLazyLoad)="onSort($event)"
+  [sortField]="fieldSort && fieldSort.property" 
+  [sortOrder]="fieldSort && fieldSort.sort">
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <ng-container *ngFor="let column of columns">
+        <th *ngIf="column.sortable && column.orderable" pReorderableColumn [pSortableColumn]="column.property">
+          <p>
+            {{column.label}} <p-sortIcon [field]="column.property"></p-sortIcon>
+          </p>
+        </th>
+        <th *ngIf="!column.sortable && column.orderable" [pSortableColumn]="column.property">
+          {{column.label}}
+        </th>
+        <th *ngIf="column.sortable && !column.orderable" [pSortableColumn]="column.property">
+          {{column.label}}
+          <p-sortIcon [field]="column.property"></p-sortIcon>
+        </th>
+        <th *ngIf="!column.sortable && !column.orderable">
+          {{column.label}}
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-element let-columns="columns">
+    <tr>
+      <td *ngFor="let column of columns">
+        {{element[column.property] }}
+
+        <ng-container *ngIf="column.type == 'button'">
+          <ng-container *ngFor="let button of column.buttons">
+            <button (click)="button.onClick(element)"> {{ button.caption }} </button>
+          </ng-container>
+        </ng-container>
+
+        <button 
+          *ngIf="column.property === '_edit_' || column.property === '_edit_remove_'" 
+          class="btn btn-sm edit mr-2" 
+          (click)="onClickEdit(element)">
+          Editar
+        </button>
+        <button 
+          *ngIf="column.property === '_remove_' || column.property === '_edit_remove_'" 
+          class="btn btn-sm delete" 
+          (click)="onClickRemove(element)">
+          Excluir
+        </button>
+        <input *ngIf="column.property === '_select_'" type="checkbox" />
+      </td>
+    </tr>
+  </ng-template>
+</p-table> -->

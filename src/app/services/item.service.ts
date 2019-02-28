@@ -3,6 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 import { ItemModel } from '../models/item.interface';
 import { ResponseData } from '../models/response.model';
 import { StorageService } from './storage.service';
+import { ButtonAction } from '../components/commom/view-list/grid/button-action';
+import { ViewList } from '../components/commom/view-list/models/view-list';
+import { GridColumn } from '../components/commom/view-list/grid/grid-column';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +26,10 @@ export class ItemService {
     const itemIndex = itemData.findIndex(i => i.id === id);
 
     if (itemIndex >= 0) {
-      this.getItemBehavior.next({ state: 'ok', data: itemData[itemIndex] });
+      setTimeout(() => {
+         this.getItemBehavior.next({ state: 'ok', data: itemData[itemIndex] });
+      }, 500);
+      
     } else {
       this.getItemBehavior.next({ state: 'error', error: 404 });
     }
@@ -35,7 +41,9 @@ export class ItemService {
     const itemData = this.store.getKey('item-data') as ItemModel[];
 
     if (itemData != null) {
-      this.getItemListBehavior.next({ state: 'ok', data: itemData });
+      setTimeout(() => {
+        this.getItemListBehavior.next({ state: 'ok', data: itemData });
+      }, 500);
     } else {
       this.getItemListBehavior.next({ state: 'error', error: 500 });
     }
@@ -50,17 +58,19 @@ export class ItemService {
       itemData.push(item);
       this.store.setKey('item-data', itemData);
 
-      this.saveItemBehavior.next({ state: 'ok', data: { ...item } as ItemModel });
+      setTimeout(() => {
+        this.saveItemBehavior.next({ state: 'ok', data: { ...item } as ItemModel });
+      }, 500);
     } else {
       this.saveItemBehavior.next({ state: 'error', error: 500 });
     }
   }
 
-  update(item: ItemModel): void {
+  update(id: string, item: ItemModel): void {
     this.updateItemBehavior.next({ state: 'loading' });
 
     const itemData = this.store.getKey('item-data') as ItemModel[];
-    const itemIndex = itemData.findIndex(i => i.id === item.id);
+    const itemIndex = itemData.findIndex(i => i.id === id);
 
     if (itemIndex >= 0) {
       let newState = itemData.map((it, index) => {
@@ -68,7 +78,9 @@ export class ItemService {
       });
       this.store.setKey('item-data', newState);
 
-      this.updateItemBehavior.next({ state: 'ok', data: true });
+      setTimeout(() => {
+        this.updateItemBehavior.next({ state: 'ok', data: true });
+      }, 500);
     } else {
       this.updateItemBehavior.next({ state: 'error', error: 404 });
     }
@@ -82,10 +94,67 @@ export class ItemService {
 
     if (itemIndex >= 0) {
       this.store.setKey('item-data', itemData.filter(i => i.id !== id));
-      this.deleteItemBehavior.next({ state: 'ok', data: true });
+      
+      setTimeout(() => {
+        this.deleteItemBehavior.next({ state: 'ok', data: true });
+      }, 500);
     } else {
       this.deleteItemBehavior.next({ state: 'error', error: 404 });
     }
+  }
+
+  getViewOptions(buttons: ButtonAction[] = [], title = '', sortable: boolean = true, ordeable: boolean = true): ViewList {
+    const columns = [
+      {
+        property: 'name',
+        label: 'Item',
+        type: 'text'
+      },
+      {
+        property: 'unit',
+        label: 'Unidade',
+        type: 'enum'
+      },
+      {
+        property: 'amount',
+        label: 'Quantidade',
+        type: 'text'
+      },
+      {
+        property: 'price',
+        label: 'Preço',
+        type: 'text'
+      },
+      {
+        property: 'perishable',
+        label: 'Perecível',
+        type: 'boolean/string'
+      },
+      {
+        property: 'expirationDate',
+        label: 'Validade',
+        type: 'date'
+      },
+      {
+        property: 'productionDate',
+        label: 'Fabricação',
+        type: 'date'
+      }
+    ] as GridColumn[];
+
+    const viewGridOptions = {
+      title,
+      columns,
+      buttons
+    } as ViewList;
+
+    viewGridOptions.columns.map(c => {
+      c.sortable = sortable;
+      c.orderable = ordeable;
+      return c;
+    });
+
+    return viewGridOptions;
   }
 
   generateGUID() {
@@ -94,6 +163,4 @@ export class ItemService {
     }
     return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
   }
-
-
 }

@@ -1,3 +1,30 @@
-$primary: #005a9c;
 $error: #c60000;
-$success: #038600;
+$danger: #fe4046;
+
+$white-light: #ffffff;
+$white-normal: #D8D8D8;
+
+$grey-light: #E9E9E9;
+$grey-normal: #AEAEAE;
+$grey-dark: #525355;
+
+$black-normal: #3E3E40;
+
+$red-light: #fe4046;
+$red-normal: #FA111A;
+$red-dark: #c60000;
+
+$green-light: #00b64f;
+$green-normal: #038600;
+$green-dark: darkgreen;
+
+$blue-lighter: #80bdff;
+$blue-light: #009cde;
+$blue-normal: #005a9c;
+
+
+$primary: $blue-light;
+$error: $red-dark;
+$success: $green-light;
+$danger: $red-light;
+$required-tag: $error;

@@ -5,12 +5,14 @@ import { RouterModule } from "@angular/router";
 import { TieredMenuModule } from "primeng/tieredmenu";
 import { CommonModule } from "@angular/common";
 import { HeaderModule } from "./header/header.module";
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [
     CommonModule,
     HeaderModule,
     RouterModule,
+    CardModule,
     TieredMenuModule
   ],
   declarations: [
@@ -24,4 +26,4 @@ import { HeaderModule } from "./header/header.module";
 
   ]
 })
-export class MainModule {}
+export class MainModule { }

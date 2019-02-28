@@ -1,0 +1,9 @@
+<div>
+  <app-label [text]="label" *ngIf="!hideLabel" [isRequired]="isRequired">
+  </app-label>
+  <ng-content></ng-content>
+  <app-validation-message 
+    *ngIf="controlRef && controlRef.invalid && (controlRef.dirty || controlRef.touched)"
+    [text]="getErrorMessage()">
+  </app-validation-message>
+</div>

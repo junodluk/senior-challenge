@@ -1,3 +1,55 @@
-<p>
-  item-form works!
-</p>
+<div class="container-fluid">
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-12">
+      <div class="container-header">
+        <h3>{{itemId ? 'Cadastro de Item' : 'Novo Item'}}</h3>
+      </div>
+
+      <div class="container-content mt-4">
+        <div class="form-group">
+
+          <div class="row">
+            <div class="col-md-3">
+              <app-custom-input label="Nome do Item" formControlName="name" allowSpecialCharacteres="true">
+              </app-custom-input>
+            </div>
+            <div class="col-md-3">
+              <app-field label="Data de Validade" [isRequired]="true" [controlRef]="itemForm.get('expirationDate')">
+                <p-calendar formControlName="expirationDate" [dateFormat]="calendarConfig.dateFormat" [locale]="calendarConfig" [showIcon]="true">
+                </p-calendar>
+              </app-field>
+            </div>
+            <div class="col-md-3">
+              <app-field label="Data de Fabricação" [isRequired]="true" [controlRef]="itemForm.get('productionDate')">
+                <p-calendar formControlName="productionDate" [dateFormat]="calendarConfig.dateFormat" [locale]="calendarConfig" [showIcon]="true">
+                </p-calendar>
+              </app-field>
+            </div>
+            <div class="col-md-3">
+              <app-field label="Unidade">
+                <p-dropdown 
+                  [options]="itemUnitOptions" 
+                  formControlName="unit"
+                  placeholder="Selecione a Unidade de Medida" 
+                  optionLabel="name">
+                </p-dropdown>
+              </app-field>
+            </div>
+          </div>
+          
+
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-green float-right ml-2" [disabled]="!itemForm.valid">
+            <span class="fas fa-check"></span> Salvar
+          </button>
+          <button type="button" (click)="onCancel()" class="btn btn-grey link float-right">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,24 @@
+:host ::ng-deep {
+  > div {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 10px;
+  }
+
+  .input-container {
+    height: 38px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
+
+  .ui-inputtext {
+    width: 100%;
+  }
+
+  .form-control {
+    margin-top: 2px;
+  }
+}

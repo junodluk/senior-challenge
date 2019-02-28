@@ -1,0 +1,232 @@
+<div>
+  <label [ngClass]="{ 'changed-label': isChanged() }" *ngIf="!hideLabel && inputType !== 'checkbox'" class="label" title="{{label}}">{{label}} <span *ngIf="isRequired" class="required">*</span></label>
+  <input
+    *ngIf="(!inputType || inputType === 'letters') && customMask"
+    type="text"
+    [id]="idComponent"
+    [dropSpecialCharacters]="true"
+    [mask]="customMask"
+    [patterns]="patterns"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [maxlength]="maxLength || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }"/>
+  <input
+    *ngIf="(!inputType || inputType === 'letters') && !customMask"
+    type="text"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [maxlength]="maxLength || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }"/>
+    <button pButton type="button" icon="fa fa-superpowers" class="ui-button-warn" *ngIf="(!inputType || inputType === 'letters') && !customMask && showButtonSearch"></button>   
+  <input
+    *ngIf="inputType === 'currency'"
+    type="text"
+    currencyMask
+    [options]="{ prefix: 'R$', thousands: '.', decimal: ',', align: 'left' }"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [maxlength]="maxLength || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }"/>
+  <input
+    *ngIf="inputType === 'password'"
+    type="password"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [maxlength]="maxLength || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }"/>
+  <input
+    *ngIf="inputType === 'number'"
+    type="text"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }"/>
+
+  <ng-container *ngIf="inputType === 'radio'">
+    <p-radioButton
+      *ngFor="let radio of radioValues"
+      [name]="groupname"
+      [label]="radio.label"
+      [value]="radio.value"
+      [(ngModel)]="value"
+      [attr.name]="formControlName"
+      [id]="formControlName"
+      class="ml-2">
+    </p-radioButton>
+  </ng-container>
+
+
+  <p-chips
+    *ngIf="inputType === 'chips'"
+    [(ngModel)]="value">
+  </p-chips>
+
+    
+  <div class="input-container" *ngIf="inputType === 'switch'">
+    <p-inputSwitch
+      [(ngModel)]="value"
+      [attr.name]="formControlName"
+      [id]="formControlName">
+    </p-inputSwitch>
+  </div>
+
+  <textarea
+    *ngIf="inputType === 'text-area'"
+    autocomplete="off"
+    class="form-control text-area"
+    [title]="tooltip || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }">{{value}}
+  </textarea>
+  
+  <select
+    *ngIf="inputType === 'combo-box'"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && (control.dirty || control.touched) || !externError
+    }">
+      <option [value]=""></option>
+      <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+  </select>
+
+  <select
+    *ngIf="inputType === 'dropdown'"
+    autocomplete="off"
+    class="form-control"
+    [title]="tooltip || ''"
+    [attr.name]="formControlName"
+    [id]="formControlName"
+    (focus)="onFocus($event)"
+    (change)="onChange($event)"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    [ngClass]="{ 
+      'changed-red': isChanged() == 'red',
+      'changed-green': isChanged() == 'green',
+      'no-border': noBorder,
+      'invalid': control.invalid && !isFocused() && !isDisabled && (control.dirty || control.touched) || externError,
+      'valid': !control.invalid && !isFocused() && !isDisabled && (control.dirty || control.touched) || !externError
+    }">
+      <!--<option [value]="">Selecione um opção</option>-->
+    <option *ngFor="let option of options" [value]="option.key">{{ option.value }}</option>
+  </select>
+
+  <p-checkbox
+    *ngIf="inputType === 'checkbox'"
+    [name]="groupname"
+    [label]="labelCheckbox"
+    [value]="valueCheckbox"
+    [attr.name]="formControlName"
+    [id]="formControlName">
+  </p-checkbox>
+ 
+  <!-- TODO: add a date picker control here (*ngIf="inputType === 'datepicker'") -->
+  <!--
+  <img alt=""
+    [ngClass]="{ 'datepicker-icon': inputType === 'datepicker' }"
+    *ngIf="inputType !== 'checkbox' && !hideLabel && !isDisabled && control.invalid && !isFocused() && (control.dirty || control.touched)"
+    src="assets/images/icons/ic_error.png" />
+  <img alt=""
+    [ngClass]="{ 'datepicker-icon': inputType === 'datepicker' }"
+    *ngIf="inputType !== 'checkbox' && !hideLabel && !isDisabled && !control.invalid && !isFocused() && value && value !== '' && (control.dirty || control.touched)"
+    src="assets/images/icons/ic_success.png" />
+    -->
+  <app-validation-message 
+    *ngIf="!hideLabel && control.invalid && !isDisabled && !isFocused() && (control.dirty || control.touched)"
+    [text]="getErrorMessage()">
+  </app-validation-message>
+</div>
