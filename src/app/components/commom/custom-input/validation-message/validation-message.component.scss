@@ -1,8 +1,9 @@
 @import '../../../../../styles.scss';
 
 .input-error {
-  color: $error;
-  font-size: $tiny;
-  margin: 2px;
   display: block;
+  min-height: 16px;
+  margin: 2px;
+  font-size: $tiny;
+  color: $error;
 }

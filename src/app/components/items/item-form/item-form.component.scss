@@ -1,0 +1,33 @@
+:host ::ng-deep {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: column;
+  padding: 30px;
+
+  p-breadcrumb {
+    width: calc(100%);
+    max-width: 675px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    margin-bottom: 15px;
+
+    .ui-breadcrumb {
+      border: 0;
+
+      ul li .ui-menuitem-link {
+        font-family: "Montserrat";
+      }
+    }
+  }
+
+  p-card {
+    width: calc(100%);
+    max-width: 675px;
+    font-family: "Montserrat";
+
+    .ui-card-body {
+      padding: 1em 0px;
+    }
+  }
+}

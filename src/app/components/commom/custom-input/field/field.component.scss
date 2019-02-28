@@ -1,3 +1,5 @@
+@import '../../../../../assets/scss/colors.scss';
+
 :host ::ng-deep {
   > div {
     display: flex;
@@ -11,7 +13,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-top: 2px;
+  }
+
+  p-checkbox {
+    height: 35px;
+    display: flex;
+    align-items: center;
   }
 
   .ui-inputtext {
@@ -19,6 +26,10 @@
   }
 
   .form-control {
-    margin-top: 2px;
+    height: 35px;
+
+    &.ng-invalid.ng-touched:not(:focus) {
+      border-color: $red-dark !important;
+    }
   }
 }

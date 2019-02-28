@@ -19,6 +19,9 @@ export class ItemService {
   updateItemBehavior = new BehaviorSubject<ResponseData<boolean>>({ state: 'notLoaded' });
   deleteItemBehavior = new BehaviorSubject<ResponseData<boolean>>({ state: 'notLoaded' });
 
+  // ATENÇÃO! 
+  // No retorno das requisições é utilizado setTimeout unica e exclusivamente com fins visuais para exibir o loader/spinner
+
   get(id: string): void {
     this.getItemBehavior.next({ state: 'loading' });
 
@@ -26,6 +29,7 @@ export class ItemService {
     const itemIndex = itemData.findIndex(i => i.id === id);
 
     if (itemIndex >= 0) {
+      console.log(itemData[itemIndex]);
       setTimeout(() => {
          this.getItemBehavior.next({ state: 'ok', data: itemData[itemIndex] });
       }, 500);
@@ -35,14 +39,25 @@ export class ItemService {
     }
   }
 
-  query(queryOptions: any): void {
+  query(queryOptions: ItemModel): void {
     this.getItemListBehavior.next({ state: 'loading' });
 
-    const itemData = this.store.getKey('item-data') as ItemModel[];
+    console.log(queryOptions);
 
-    if (itemData != null) {
+    let filteredData = [...this.store.getKey('item-data') as ItemModel[]];
+
+    if (queryOptions.name)
+      filteredData = [...filteredData.filter((item) => item.name.indexOf(queryOptions.name) > -1)];
+
+    if (queryOptions.unit && queryOptions.unit['value'])
+      filteredData = [...filteredData.filter((item) => item.unit == queryOptions.unit['value'])];
+
+    if (queryOptions.perishable != null)
+      filteredData = [...filteredData.filter((item) => item.perishable == queryOptions.perishable)];
+
+    if (filteredData != null) {
       setTimeout(() => {
-        this.getItemListBehavior.next({ state: 'ok', data: itemData });
+        this.getItemListBehavior.next({ state: 'ok', data: filteredData });
       }, 500);
     } else {
       this.getItemListBehavior.next({ state: 'error', error: 500 });
@@ -74,7 +89,7 @@ export class ItemService {
 
     if (itemIndex >= 0) {
       let newState = itemData.map((it, index) => {
-        return index != itemIndex ? it : item;
+        return index != itemIndex ? it : { ...item, id };
       });
       this.store.setKey('item-data', newState);
 
@@ -118,27 +133,33 @@ export class ItemService {
       {
         property: 'amount',
         label: 'Quantidade',
-        type: 'text'
+        type: 'text',
       },
       {
         property: 'price',
+        type: 'currency',
         label: 'Preço',
-        type: 'text'
       },
       {
         property: 'perishable',
         label: 'Perecível',
-        type: 'boolean/string'
+        type: 'boolean/icon',
+        textAlign: 'center',
+        width: 90
       },
       {
         property: 'expirationDate',
         label: 'Validade',
-        type: 'date'
+        type: 'date',
+        textAlign: 'center',
+        width: 85
       },
       {
         property: 'productionDate',
         label: 'Fabricação',
-        type: 'date'
+        type: 'date',
+        textAlign: 'center',
+        width: 100
       }
     ] as GridColumn[];
 

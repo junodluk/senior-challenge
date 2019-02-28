@@ -1,17 +1,10 @@
-p-calendar {
-  .ui-calendar {
-    display: flex !important;
-  
-    .ui-calendar-button {
-      height: 35px !important;
-    }
-  }
-
-  input {
+p-dropdown {
+  .ui-dropdown {
+    width: 100% !important;
     border-color: $grey-light !important;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
 
-    &:focus {
+    &.ui-dropdown-open {
       border-color: $blue-lighter !important;
       outline: 0 !important;
       box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
@@ -19,7 +12,7 @@ p-calendar {
   }
 
   &.ng-invalid.ng-touched {
-    input.ui-inputtext:not(:focus) {
+    .ui-dropdown:not(.ui-dropdown-open) {
       border-color: $red-dark !important;
     }
   }

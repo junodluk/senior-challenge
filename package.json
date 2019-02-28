@@ -23,7 +23,6 @@
     "@ng-bootstrap/ng-bootstrap": "^4.0.4",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
-    "fuse.js": "^3.4.2",
     "ng2-currency-mask": "^5.3.1",
     "ngx-mask": "^7.3.6",
     "ngx-spinner": "^7.0.0",

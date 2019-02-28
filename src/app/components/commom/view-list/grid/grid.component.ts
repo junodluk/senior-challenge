@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
-import * as Responses from '../../../../models/response.model';
 import { GridColumn, GridSaved } from './grid-column';
-import { GridSave } from './grid-save';
 
 export enum SortType {
   DESC = -1,
@@ -21,7 +19,7 @@ enum BoolIcons {
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements AfterViewInit, OnDestroy, OnInit {
+export class GridComponent implements AfterViewInit, OnInit {
   private orderedColumns: GridColumn[] = [];
   private hasEdition = false;
   fieldSort: GridColumn;
@@ -49,9 +47,7 @@ export class GridComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private messageService: MessageService,
     private spinner: NgxSpinnerService
-  ) {
-    this.buildBehaviors();
-  }
+  ) { }
 
   onClickEdit(element: any) {
     this.clickEdit.emit(element);
@@ -76,56 +72,7 @@ export class GridComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    // if (this.viewName) {
-    //   this.menuViewsService.getGridByView(this.viewName);
-    // }
-  }
 
-  ngOnDestroy() {
-    // if (this.hasEdition) {
-    //   this.menuViewsService.saveGrid({
-    //     view: this.viewName,
-    //     columns: this.orderedColumns.filter(column => column.type !== 'button')
-    //   });
-    // }
-  }
-
-  buildBehaviors() {
-    // this.menuViewsService.gridBehavior.next({ state: 'notLoaded' });
-    // this.menuViewsService.gridBehavior
-    //   .subscribe((response: Responses.ResponseData<GridSave>) => {
-    //     if (Responses.isResponseDataError(response)) {
-    //       this.messageService.add({
-    //         severity: 'warn',
-    //         summary: 'Configuração da tabela',
-    //         detail: 'Erro ao salvar as configurações.'
-    //       });
-    //     }
-    //   }
-    // );
-
-    // this.menuViewsService.userGridColumnsBehavior.next({ state: 'notLoaded' });
-    // this.menuViewsService.userGridColumnsBehavior
-    //   .subscribe((response: Responses.ResponseData<GridSaved[]>) => {
-    //     if (Responses.isResponseDataLoading(response)) {
-    //       this.spinner.show();
-    //     } else if (Responses.isResponseDataOk(response)) {
-    //       if (response.data.length) {
-    //         const newColumnsOrdered = this.mergeOrderColumns(response.data);
-    //         this.fieldSort = newColumnsOrdered.find(column => column.sort !== SortType.NORMAL);
-    //         this.onSort({ sortField: this.fieldSort.property, sortOrder: this.fieldSort.sort });
-
-    //         const buttonColumn = this.columns.find(column => column.type === 'button');
-    //         buttonColumn && newColumnsOrdered.push(buttonColumn);
-
-    //         this.columns = newColumnsOrdered;
-    //       }
-    //       this.spinner.hide();
-    //     } else if (Responses.isResponseDataError(response)) {
-    //       this.spinner.hide();
-    //     }
-    //   }
-    // );
   }
 
   getHeaderStyle(column: GridColumn) {

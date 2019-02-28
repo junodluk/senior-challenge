@@ -1,55 +1,112 @@
-<div class="container-fluid">
-  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-    <div class="col-md-12">
-      <div class="container-header">
-        <h3>{{itemId ? 'Cadastro de Item' : 'Novo Item'}}</h3>
-      </div>
+<p-breadcrumb [model]="breadCrumbItems" [home]="breadCrumbHome"></p-breadcrumb>
 
-      <div class="container-content mt-4">
-        <div class="form-group">
+<p-card>
+  <div class="container-fluid">
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="col-md-12">
+        <div class="container-header">
+          <h3>{{itemId ? 'Cadastro de Item' : 'Novo Item'}}</h3>
+        </div>
 
-          <div class="row">
-            <div class="col-md-3">
-              <app-custom-input label="Nome do Item" formControlName="name" allowSpecialCharacteres="true">
-              </app-custom-input>
+        <div class="container-content mt-4">
+          <div class="form-group">
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <app-field label="Nome do Item" [isRequired]="true" [controlRef]="itemForm.get('name')">
+                  <input
+                    type="text"
+                    formControlName="name"
+                    autocomplete="off"
+                    class="form-control" />
+                </app-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <app-field label="">
+                  <p-checkbox
+                    binary="true"
+                    formControlName="perishable"
+                    label="Produto Perecível"
+                    (onChange)="onChangePerishable($event)">
+                  </p-checkbox>
+                </app-field>
+              </div>
             </div>
-            <div class="col-md-3">
-              <app-field label="Data de Validade" [isRequired]="true" [controlRef]="itemForm.get('expirationDate')">
-                <p-calendar formControlName="expirationDate" [dateFormat]="calendarConfig.dateFormat" [locale]="calendarConfig" [showIcon]="true">
-                </p-calendar>
-              </app-field>
+
+            <app-split title="Inventário" noMarginTop="true"></app-split>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <app-field label="Unidade" [isRequired]="true" [controlRef]="itemForm.get('unit')">
+                  <p-dropdown 
+                    [options]="itemUnitOptions" 
+                    formControlName="unit"
+                    placeholder="Selecione a Unidade de Medida" 
+                    optionLabel="name"
+                    (onChange)="onChangeUnit($event)">
+                  </p-dropdown>
+                </app-field>
+              </div>
             </div>
-            <div class="col-md-3">
-              <app-field label="Data de Fabricação" [isRequired]="true" [controlRef]="itemForm.get('productionDate')">
-                <p-calendar formControlName="productionDate" [dateFormat]="calendarConfig.dateFormat" [locale]="calendarConfig" [showIcon]="true">
-                </p-calendar>
-              </app-field>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <app-field label="Preço{{ amountInputOptions.suffix ? ' ('+amountInputOptions.suffix.replace(' ','')+')' : '' }}" [isRequired]="true" [controlRef]="itemForm.get('price')">
+                  <input
+                    type="text"
+                    currencyMask
+                    formControlName="price"
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left', allowNegative: false }"
+                    autocomplete="off"
+                    class="form-control"/>
+                </app-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <app-field label="Quantidade" [controlRef]="itemForm.get('amount')">
+                  <input
+                    type="text"
+                    currencyMask
+                    formControlName="amount"
+                    [options]="amountInputOptions"
+                    autocomplete="off"
+                    class="form-control" />
+                </app-field>
+              </div>
             </div>
-            <div class="col-md-3">
-              <app-field label="Unidade">
-                <p-dropdown 
-                  [options]="itemUnitOptions" 
-                  formControlName="unit"
-                  placeholder="Selecione a Unidade de Medida" 
-                  optionLabel="name">
-                </p-dropdown>
-              </app-field>
+
+            <app-split title="Armazenamento" noMarginTop="true"></app-split>
+
+            <div *ngIf="itemExpired" class="alert alert-warning" role="alert">
+              <strong>Atenção!</strong> A Data de Validade indica que este produto está <ins>vencido</ins>.
             </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <app-field label="Data de Validade" [isRequired]="expirationDateRequired" [controlRef]="itemForm.get('expirationDate')">
+                  <p-calendar formControlName="expirationDate" [dateFormat]="calendarConfig.dateFormat" [locale]="calendarConfig" [showIcon]="true" (onSelect)="onChangeExpirationDate($event)">
+                  </p-calendar>
+                </app-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <app-field label="Data de Fabricação" [isRequired]="true" [controlRef]="itemForm.get('productionDate')">
+                  <p-calendar formControlName="productionDate" [dateFormat]="calendarConfig.dateFormat" [locale]="calendarConfig" [showIcon]="true">
+                  </p-calendar>
+                </app-field>
+              </div>
+            </div>
+
           </div>
-          
-
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-green float-right ml-2">
+              <span class="fas fa-check"></span> Salvar
+            </button>
+            <button type="button" (click)="onCancel()" class="btn btn-grey link float-right">
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-green float-right ml-2" [disabled]="!itemForm.valid">
-            <span class="fas fa-check"></span> Salvar
-          </button>
-          <button type="button" (click)="onCancel()" class="btn btn-grey link float-right">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
+</p-card>

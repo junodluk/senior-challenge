@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [
     {
       label: 'Novo Item',
-      icon: 'far fa-plus-square',
+      icon: 'fas fa-plus',
       routerLink: ['/items/new']
     },
     {

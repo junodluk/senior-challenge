@@ -9,10 +9,6 @@ button.btn {
   &:not(.icon-only) {
     padding-top: 8px;
   
-    &.link {
-      border: 2px solid transparent !important;
-    }
-  
     span.fas {
       margin-top: -4px;
       margin-right: 5px;
@@ -30,13 +26,15 @@ button[class*=btn-block].btn {
   padding: 0.75rem;
 }
 
+button.btn-green,
 button[class*=btn-green].btn {
-  border: 2px solid $green-light;
-  color: $green-light;
+  background-color: transparent !important;
+  border: 2px solid $green-light !important;
+  color: $green-light !important;
 
   &:hover {
-    background-color: $green-light;
-    color: $white-light;
+    background-color: $green-light !important;
+    color: $white-light !important;
   }
 }
 
@@ -60,14 +58,20 @@ button[class*=btn-blue].btn {
   }
 }
 
+button.btn-grey,
 button[class*=btn-grey].btn {
-  border: 2px solid $grey-dark;
-  color: $grey-dark;
+  background-color: transparent !important;
+  border: 2px solid $grey-darker !important;
+  color: $grey-darker !important;
   
   &:hover {
-    background-color: $grey-dark;
-    color: $white-light;
+    background-color: $grey-darker !important;
+    color: $white-light !important;
   }
+}
+
+button.link {
+  border: 2px solid transparent !important;
 }
 
 .btn {

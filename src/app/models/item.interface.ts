@@ -1,7 +1,7 @@
 export const ItemUnit = [
-  { name: 'Litro', short: 'lt', value: 1 },
-  { name: 'Quilograma', short: 'kg', value: 2 },
-  { name: 'Unidade', short: 'un', value: 3 }
+  { name: 'Litro (lt)', suffix: 'lt', precision: 3, value: 1 },
+  { name: 'Quilograma (kg)', suffix: 'kg', precision: 2, value: 2 },
+  { name: 'Unidade (un)', suffix: 'un', precision: 0, value: 3 }
 ]
 
 export interface ItemModel {
